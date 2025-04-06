@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CBIT Canteen</title>
+    <link rel="stylesheet" href="login.css">
+
+</head>
+<body>
+    <div class="login-box">
+        <img src="cbit logo.jpg" alt="CBIT Logo">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p>Don't have an account? <a href="signup.html">Create Account</a></p>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const storedUser = localStorage.getItem("registeredUser");
+            const storedPass = localStorage.getItem("registeredPass");
+
+            if (username === storedUser && password === storedPass) {
+                localStorage.setItem("loggedIn", "true");
+                window.location.href = "index.html";
+            } else {
+                alert("Invalid username or password.");
+            }
+        }
+    </script>
+</body>
+</html>

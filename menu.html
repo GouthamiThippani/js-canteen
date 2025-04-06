@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CBIT Canteen Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+
+  <header>
+    <h1>CBIT Canteen Menu</h1>
+  </header>
+  <nav>
+  <div class="nav-right">
+    <a href="index.html">Back</a>
+  </div>
+  </nav>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search for food...">
+  </div>
+
+  <section class="menu-section">
+    <h2>All Items</h2>
+    <div class="menu-grid" id="menuItems">
+      <!-- Menu Item -->
+      <div class="menu-card">
+        <img src="dosa.jfif" alt="Dosa">
+        <div class="card-body">
+          <h3>Dosa</h3>
+          <p class="price">₹40</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="idly.jfif" alt="Idly">
+        <div class="card-body">
+          <h3>Idly (2 pcs)</h3>
+          <p class="price">₹30</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="vada.jfif" alt="Vada">
+        <div class="card-body">
+          <h3>Vada</h3>
+          <p class="price">₹20</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="briyani.jfif" alt="Chicken Biryani">
+        <div class="card-body">
+          <h3>Chicken Biryani</h3>
+          <p class="price">₹180</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="veg meals.jfif" alt="Veg Meals">
+        <div class="card-body">
+          <h3>Veg Meals</h3>
+          <p class="price">₹120</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="fired rice.jfif" alt="Gobi Fried Rice">
+        <div class="card-body">
+          <h3>Gobi Fried Rice</h3>
+          <p class="price">₹90</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="mirchi bajii.jfif" alt="Mirchi Bajji">
+        <div class="card-body">
+          <h3>Mirchi Bajji</h3>
+          <p class="price">₹30</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="french fries.jfif" alt="French Fries">
+        <div class="card-body">
+          <h3>French Fries</h3>
+          <p class="price">₹50</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="samosa.jfif" alt="Samosa">
+        <div class="card-body">
+          <h3>Samosa</h3>
+          <p class="price">₹25</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <a href="bill.html" class="billing-btn">Proceed to Billing</a>
+
+  <footer>
+    &copy; 2025 CBIT Canteen. All rights reserved.
+  </footer>
+
+  <script>
+    document.querySelector('.billing-btn').addEventListener('click', function () {
+      const items = document.querySelectorAll('.menu-card');
+      let order = [];
+  
+      items.forEach(card => {
+        const name = card.querySelector('h3').textContent;
+        const price = parseFloat(card.querySelector('.price').textContent.replace('₹', ''));
+        const quantity = parseInt(card.querySelector('input').value);
+  
+        if (quantity > 0) {
+          order.push({ name, price, quantity });
+        }
+      });
+  
+      localStorage.setItem('canteenOrder', JSON.stringify(order));
+    });
+  </script>
+  
+</body>
+</html>

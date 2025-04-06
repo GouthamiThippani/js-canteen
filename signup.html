@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - CBIT Canteen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f0fe;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .signup-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #aaa;
+            text-align: center;
+        }
+        .signup-box img {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 250px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        a {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-box">
+        <img src="cbit logo.jpg" alt="CBIT Logo">
+        <h2>Create Account</h2>
+        <input type="text" id="newUsername" placeholder="Choose a username" required>
+        <input type="password" id="newPassword" placeholder="Choose a password" required>
+        <button onclick="signup()">Sign Up</button>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script>
+        function signup() {
+            const username = document.getElementById("newUsername").value;
+            const password = document.getElementById("newPassword").value;
+
+            if (username && password) {
+                localStorage.setItem("registeredUser", username);
+                localStorage.setItem("registeredPass", password);
+                alert("Account created successfully! Please login.");
+                window.location.href = "login.html";
+            } else {
+                alert("Please fill out both fields.");
+            }
+        }
+    </script>
+</body>
+</html>

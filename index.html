@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBIT Canteen</title>
+  <!-- You can still link external CSS files if needed -->
+  <link rel="stylesheet" href="index.css">
+  
+  <script>
+    // Check if user is logged in; if not, redirect to login page
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="navbar">
+    <div class="nav-left">
+      <img src="cbit logo.jpg" alt="CBIT Canteen Logo" height="40">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="bill.html">Billing</a>
+      <a href="about.html">About</a>
+      <a href="review.html">Contact Us</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" onclick="logout()" style="background-color: red; border-radius: 5px; padding: 10px;">Logout</a>
+    </div>
+  </div>
+  <div class="hero">
+    <h1>Welcome to CBIT Canteen</h1>
+    <p>Your one-stop destination for delicious and hygienic food.</p>
+    <a href="menu.html" class="menu-button">View Menu</a>
+  </div>
+  <div class="content">
+    <p>Welcome to CBIT Canteen, your go-to place for delicious and hygienic food. We are committed to providing a variety of meals to students and faculty at affordable prices. Our mission is to serve fresh, nutritious, and tasty food in a comfortable environment.</p>
+  </div>
+  <script>
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

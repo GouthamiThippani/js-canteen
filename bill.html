@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBIT Bill</title>
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="bill.css">
+</head>
+<body>
+  <header>
+    <img src="cbit logo.jpg" alt="CBIT Logo">
+    <h2>Your Bill</h2>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="billTableBody"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">Total Amount</td>
+        <td id="grandTotal">₹0</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="note">Your order will be ready in 10 minutes.</div>
+
+  <div class="upi-section">
+    <h4>Pay with UPI</h4>
+    <img src="qr.png" alt="QR Code">
+    <p><strong>UPI ID:</strong> cbitcanteen@upi</p>
+    <input type="text" id="upiAmount" placeholder="Enter Amount" />
+    <button class="btn" onclick="alert('Payment Confirmed!')">Confirm Payment</button>
+  </div>
+
+  <button class="btn" onclick="downloadPDF()">Download Receipt</button>
+
+  <script>
+    const order = JSON.parse(localStorage.getItem('canteenOrder')) || [];
+    const tbody = document.getElementById('billTableBody');
+    let total = 0;
+
+    order.forEach(item => {
+      const row = document.createElement('tr');
+      const itemTotal = item.price * item.quantity;
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>₹${item.price}</td>
+        <td>₹${itemTotal}</td>
+      `;
+      tbody.appendChild(row);
+      total += itemTotal;
+    });
+
+    document.getElementById('grandTotal').textContent = `₹${total}`;
+    document.getElementById('upiAmount').value = total;
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const date = new Date().toLocaleString();
+
+      // Title
+      doc.setFontSize(18);
+      doc.setTextColor(40, 40, 40);
+      doc.text("CBIT Canteen Receipt", 105, 20, { align: "center" });
+
+      // Date
+      doc.setFontSize(10);
+      doc.setTextColor(100);
+      doc.text(date, 150, 10);
+
+      // Line separator
+      doc.setDrawColor(200, 200, 200);
+      doc.line(20, 25, 190, 25);
+
+      // Table headers
+      doc.setFontSize(12);
+      doc.setTextColor(60, 60, 60);
+      let y = 35;
+      doc.setFont(undefined, "bold");
+      doc.text("Item", 20, y);
+      doc.text("Qty", 90, y);
+      doc.text("Price", 120, y);
+      doc.text("Total", 160, y);
+
+      y += 7;
+      doc.setFont(undefined, "normal");
+
+      // Order items
+      order.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        doc.text(item.name, 20, y);
+        doc.text(item.quantity.toString(), 90, y);
+        doc.text(`₹${item.price}`, 120, y);
+        doc.text(`₹${itemTotal}`, 160, y);
+        y += 7;
+      });
+
+      // Total
+      y += 10;
+      doc.setFont(undefined, "bold");
+      doc.text(`Total Amount: ₹${total}`, 20, y);
+
+      // Order note
+      y += 10;
+      doc.setFont(undefined, "normal");
+      doc.setTextColor(30, 150, 80);
+      doc.text("Your order will be ready in 10 minutes.", 20, y);
+
+      // UPI ID
+      y += 10;
+      doc.setFontSize(11);
+      doc.setTextColor(0, 0, 0);
+      doc.text("Pay via UPI: cbitcanteen@upi", 20, y);
+
+      doc.save("CBIT_Receipt.pdf");
+    }
+  </script>
+</body>
+</html>
