@@ -13,20 +13,20 @@
     <h1>CBIT Canteen Menu</h1>
   </header>
   <nav>
-    <div class="nav-right">
-      <a href="index.html">Back</a>
-    </div>
+  <div class="nav-right">
+    <a href="index.html">Back</a>
+  </div>
   </nav>
 
   <!-- Search -->
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search for food..." onkeyup="searchFunction()">
+    <input type="text" id="searchInput" placeholder="Search for food...">
   </div>
 
   <section class="menu-section">
     <h2>All Items</h2>
     <div class="menu-grid" id="menuItems">
-      <!-- Menu Items (same as before) -->
+      <!-- Menu Item -->
       <div class="menu-card">
         <img src="dosa.jfif" alt="Dosa">
         <div class="card-body">
@@ -35,6 +35,7 @@
           <input type="number" min="0" value="0">
         </div>
       </div>
+
       <div class="menu-card">
         <img src="idly.jfif" alt="Idly">
         <div class="card-body">
@@ -43,9 +44,73 @@
           <input type="number" min="0" value="0">
         </div>
       </div>
-      <!-- Repeat for other menu items... -->
+
+      <div class="menu-card">
+        <img src="vada.jfif" alt="Vada">
+        <div class="card-body">
+          <h3>Vada</h3>
+          <p class="price">₹20</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="briyani.jfif" alt="Chicken Biryani">
+        <div class="card-body">
+          <h3>Chicken Biryani</h3>
+          <p class="price">₹180</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="veg meals.jfif" alt="Veg Meals">
+        <div class="card-body">
+          <h3>Veg Meals</h3>
+          <p class="price">₹120</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="fired rice.jfif" alt="Gobi Fried Rice">
+        <div class="card-body">
+          <h3>Gobi Fried Rice</h3>
+          <p class="price">₹90</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="mirchi bajii.jfif" alt="Mirchi Bajji">
+        <div class="card-body">
+          <h3>Mirchi Bajji</h3>
+          <p class="price">₹30</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="french fries.jfif" alt="French Fries">
+        <div class="card-body">
+          <h3>French Fries</h3>
+          <p class="price">₹50</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="samosa.jfif" alt="Samosa">
+        <div class="card-body">
+          <h3>Samosa</h3>
+          <p class="price">₹25</p>
+          <input type="number" min="0" value="0">
+        </div>
+      </div>
     </div>
   </section>
+
+  
 
   <a href="bill.html" class="billing-btn">Proceed to Billing</a>
 
@@ -54,22 +119,6 @@
   </footer>
 
   <script>
-    // This function will search the menu items based on the input
-    function searchFunction() {
-      let input = document.getElementById('searchInput').value.toLowerCase();
-      let menuItems = document.querySelectorAll('.menu-card');
-      
-      menuItems.forEach(item => {
-        let itemName = item.querySelector('h3').textContent.toLowerCase();
-        if (itemName.includes(input)) {
-          item.style.display = '';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-
-    // Billing script (no change here)
     document.querySelector('.billing-btn').addEventListener('click', function () {
       const items = document.querySelectorAll('.menu-card');
       let order = [];
@@ -86,6 +135,16 @@
   
       localStorage.setItem('canteenOrder', JSON.stringify(order));
     });
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      const menuCards = document.querySelectorAll('.menu-card');
+
+      menuCards.forEach(card => {
+        const itemName = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = itemName.includes(filter) ? '' : 'none';
+      });
+    });
   </script>
+  
 </body>
 </html>
